@@ -84,7 +84,8 @@ app.locals.title = "Express - Generated with IronGenerator";
 
 app.use(
   cors({
-    origin: "http://localhost:3000"
+    origin: "http://localhost:3000",
+    credentials: true
   })
 );
 

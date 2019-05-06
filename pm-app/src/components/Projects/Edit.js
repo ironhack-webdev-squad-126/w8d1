@@ -13,10 +13,14 @@ class EditProject extends React.Component {
     const id = this.props.project._id;
 
     axios
-      .put(`http://localhost:5000/api/projects/${id}`, {
-        title: this.state.title,
-        description: this.state.description
-      })
+      .put(
+        `http://localhost:5000/api/projects/${id}`,
+        {
+          title: this.state.title,
+          description: this.state.description
+        },
+        { withCredentials: true }
+      )
       .then(() => {
         this.props.getDetails();
         this.setState({

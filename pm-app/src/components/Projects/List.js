@@ -9,11 +9,13 @@ class ProjectsList extends React.Component {
   };
 
   getData = () => {
-    axios.get("http://localhost:5000/api/projects").then(response => {
-      this.setState({
-        projects: response.data
+    axios
+      .get("http://localhost:5000/api/projects", { withCredentials: true })
+      .then(response => {
+        this.setState({
+          projects: response.data
+        });
       });
-    });
   };
 
   componentDidMount() {

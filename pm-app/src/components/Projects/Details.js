@@ -12,11 +12,15 @@ class ProjectDetails extends React.Component {
   getProject = () => {
     const id = this.props.match.params.id;
 
-    axios.get(`http://localhost:5000/api/projects/${id}`).then(response => {
-      this.setState({
-        project: response.data
+    axios
+      .get(`http://localhost:5000/api/projects/${id}`, {
+        withCredentials: true
+      })
+      .then(response => {
+        this.setState({
+          project: response.data
+        });
       });
-    });
   };
 
   deleteProject = () => {
@@ -34,6 +38,25 @@ class ProjectDetails extends React.Component {
 
   render() {
     const { project } = this.state;
+    console.log(this.props);
+
+    let editBlock = <></>;
+
+    if (this.props.user && this.props.user._id === project.owner) {
+      editBlock = (
+        <div>
+          <EditProject project={project} getDetails={this.getProject} />
+          <button
+            style={{ marginTop: "10px" }}
+            className="btn btn-danger"
+            onClick={this.deleteProject}
+          >
+            Delete project
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div>
         <h1>{project.title}</h1>
@@ -49,15 +72,7 @@ class ProjectDetails extends React.Component {
             );
           })}
 
-        <EditProject project={project} getDetails={this.getProject} />
-        <button
-          style={{ marginTop: "10px" }}
-          className="btn btn-danger"
-          onClick={this.deleteProject}
-        >
-          Delete project
-        </button>
-        <br />
+        {editBlock}
 
         <AddTask project={project} getProject={this.getProject} />
         <br />

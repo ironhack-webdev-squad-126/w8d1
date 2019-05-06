@@ -18,11 +18,15 @@ class AddTask extends React.Component {
 
     const project = this.props.project._id;
     axios
-      .post("http://localhost:5000/api/tasks", {
-        title: this.state.title,
-        description: this.state.description,
-        project
-      })
+      .post(
+        "http://localhost:5000/api/tasks",
+        {
+          title: this.state.title,
+          description: this.state.description,
+          project
+        },
+        { withCredentials: true }
+      )
       .then(() => {
         this.props.getProject();
         this.setState({ title: "", description: "", displayForm: false });

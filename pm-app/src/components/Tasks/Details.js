@@ -7,14 +7,18 @@ class TaskDetails extends React.Component {
   componentDidMount() {
     const taskId = this.props.match.params.taskId;
 
-    axios.get(`http://localhost:5000/api/tasks/${taskId}`).then(response => {
-      //   this.setState(response.data);
+    axios
+      .get(`http://localhost:5000/api/tasks/${taskId}`, {
+        withCredentials: true
+      })
+      .then(response => {
+        //   this.setState(response.data);
 
-      this.setState({
-        title: response.data.title,
-        description: response.data.description
+        this.setState({
+          title: response.data.title,
+          description: response.data.description
+        });
       });
-    });
   }
 
   render() {

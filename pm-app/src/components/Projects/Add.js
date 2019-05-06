@@ -20,10 +20,14 @@ class AddProject extends React.Component {
     event.preventDefault();
 
     axios
-      .post("http://localhost:5000/api/projects", {
-        title: this.state.title,
-        description: this.state.description
-      })
+      .post(
+        "http://localhost:5000/api/projects",
+        {
+          title: this.state.title,
+          description: this.state.description
+        },
+        { withCredentials: true }
+      )
       .then(() => {
         this.props.getData();
         this.setState({ title: "", description: "" });

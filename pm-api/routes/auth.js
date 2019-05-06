@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 const User = require("../models/User");
 
@@ -41,6 +42,33 @@ router.post("/signup", (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     });
+});
+
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  // triggered after successful authenticate()
+  req.login(req.user, err => {
+    if (err)
+      return res.status(500).json({
+        message: "Something went wrong in the authentication process"
+      });
+
+    // return res.status(200).json(req.user)
+    return res.json(req.user);
+  }),
+    (error, req, res) => {
+      // triggered after failed authenticate()
+      return res.status(401).json(error);
+    };
+});
+
+router.post("/logout", (req, res) => {
+  req.logout();
+  res.status(200).json({ message: "User successfully logged out" });
+});
+
+router.get("/loggedin", (req, res) => {
+  if (req.isAuthenticated()) return res.json(req.user);
+  return res.json(null);
 });
 
 module.exports = router;

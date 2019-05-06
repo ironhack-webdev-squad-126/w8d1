@@ -7,6 +7,7 @@ router.post("/projects", (req, res) => {
   Project.create({
     title: req.body.title,
     description: req.body.description,
+    owner: req.user._id,
     tasks: []
   })
     .then(response => {

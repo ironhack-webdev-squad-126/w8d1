@@ -15,16 +15,24 @@ class Navbar extends React.Component {
   render() {
     return (
       <nav className="nav-style">
-        <ul>
-          {this.state.loggedIn && (
+        {this.state.loggedIn ? (
+          <ul>
             <li>Welcome {this.state.loggedIn.username} !</li>
-          )}
-          <li>
-            <Link to="/projects" style={{ textDecoration: "none" }}>
-              Projects
-            </Link>
-          </li>
-        </ul>
+            <li>
+              <Link to="/projects" style={{ textDecoration: "none" }}>
+                Projects
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              <Link to="/signup" style={{ textDecoration: "none" }}>
+                Sign up
+              </Link>
+            </li>
+          </ul>
+        )}
       </nav>
     );
   }

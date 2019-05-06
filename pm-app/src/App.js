@@ -5,6 +5,7 @@ import ProjectDetails from "./components/Projects/Details";
 import ProjectsList from "./components/Projects/List";
 import TaskDetails from "./components/Tasks/Details";
 import Layout from "./components/Layout";
+import Signup from "./components/Auth/Signup";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/projects/:id" component={ProjectDetails} />
         <Route exact path="/projects" component={ProjectsList} />
         <Layout>
